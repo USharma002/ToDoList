@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div id="myDIV" class="header">
+      <h2 style="margin:5px">My To Do List</h2>
+      <form method="POST" action="">
+          {{ form.hidden_tag() }}
+          {{ form.title(class="form-control form-control-lg is-invalid", id="myInput") }}
+          {{ form.submit(class="addBtn") }}
+      </form>
+    </div>
+    <ul id='myUL'>
+    {% for task in tasks %}
+            <li class="{% if task.checked %}checked{% endif %}"><a class="li-itm" href="{{ url_for('task_check', task_id=task.id) }}">{{ task.title }}
+                <a href="{{ url_for('task_info', task_id=task.id) }}" class="info">Info</a>
+                <a href="{{ url_for('task_delete', task_id=task.id) }}" class="close">{{ "\u00D7" }}</a></a>
+            </li>
+    {% endfor %}
+    </ul>
+    
+    <script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
+{% endblock content %}
